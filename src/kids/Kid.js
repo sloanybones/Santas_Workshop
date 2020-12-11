@@ -1,12 +1,14 @@
 import { useParams } from "react-router-dom/cjs/react-router-dom.min"
 import { useEffect, useState } from "react"
 import Axios from "axios"
+import KidForm from "./KidForm"
+import { Button, Card, Icon } from "semantic-ui-react"
 
 const Kid = (props) => {
 
   const [kid, setKid] = useState([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(null)
   const { id } = useParams()
   
   useEffect(()=>{
@@ -18,16 +20,26 @@ const Kid = (props) => {
    try{
     let res = await Axios.get(`https://my-json-server.typicode.com/white731/demo/kids/${id}`)
     console.log("Render Kid")
-    console.log(res.data)
-    setLoading(false)
-    setError(false)
     setKid(res.data)
-
+    setLoading(false)
    } catch(err){
      console.log (err)
      setLoading(false)
-     setError(true)
+     setError(err)
    }
+  }
+
+  const updateKid = async (kid) => {
+    console.log("Updated this kid: ", kid.name)
+    console.log("to : ", kid.nice)
+    try {
+      let res = await Axios.put(`https://my-json-server.typicode.com/white731/demo/kids/${id}`, kid)
+      setKid(res.data)
+    }
+    catch (err) {
+      console.log(err)
+    }
+
   }
 
   if (loading) return <div>Loading</div>
@@ -36,7 +48,13 @@ const Kid = (props) => {
 
   return (
     <div>
-      <h1> Name: {kid.name} </h1>
+      <Button onClick={props.history.goBack}>Go Back</Button>
+        <Card>
+          <Card.Content header= {kid.name} />
+          <Card.Content description = {kid.nice ? "Status: Nice" : "Status: Naughty"}/>
+        </Card>
+      <h4> Naughty/Nice Status: {kid.nice ? "Nice" : "Naughty"}</h4>
+      <KidForm kidInfo = {kid} updateKid = {updateKid}></KidForm>
     </div>
   )
 
