@@ -10,6 +10,9 @@ return (
   <h4>
   <Link to="/santas-helpers">Santas Helpers</Link>
   </h4>
+  <h4>
+  <Link to="/deer">Deer</Link>
+  </h4>
 </div>
 )
 
