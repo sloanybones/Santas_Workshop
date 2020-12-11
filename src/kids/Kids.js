@@ -1,6 +1,7 @@
 import { Header } from "semantic-ui-react"
 import { useEffect, useState } from "react"
 import Axios from "axios"
+import { Link } from "react-router-dom/cjs/react-router-dom.min"
 
 const Kids = () => {
 
@@ -24,6 +25,7 @@ const Kids = () => {
 
    } catch(err){
      console.log (err)
+     setLoading(false)
      setError(true)
    }
   }
@@ -31,7 +33,9 @@ const Kids = () => {
   const getKidList = ()=>{
   return kids.map(k => {
     return (
-    <p key = {k.id}>{k.name} {k.nice ?  "\u2705" : 	"\u274C"}</p>
+    <Link key = {k.id} to={`kids/${k.id}`}>
+    <p> {k.name} {k.nice ? "\u2705" : "\u274C" }</p>
+    </Link>
       )
   })
 }
@@ -51,3 +55,5 @@ const Kids = () => {
 }
 
 export default Kids
+
+//  
