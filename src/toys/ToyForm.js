@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 const ToyForm = (toys) =>{
     const [name, setName] = useState("");
     const [age_group, setAgeGroup] = useState("");
+    const [img, setImg] = useState("");
 
     const handleSubmit = (e) =>{
         if(toys.id){
-            toys.editToy({name, age_group, id: toys.id});
+            toys.editToy({name, age_group,img, id: toys.id});
+            toys.hideEditForm();
         }else{
             toys.addToy({name, age_group});
         }
@@ -33,6 +35,13 @@ const ToyForm = (toys) =>{
         name={age_group}
         placeholder="what ages can play with this toy?"
         label="For Ages"
+        />
+        <Form.Input 
+        value={img}
+        onChange={(e)=> setImg(e.target.value)}
+        name={img}
+        placeholder="enter an image url"
+        label="Image URL"
         />
         <Button style={{marginTop: "5%"}} type="submit">
             {toys.id ? "Edit Toy" : "Add Toy"}

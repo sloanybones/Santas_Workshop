@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Card, Grid, Header , Image, Button} from "semantic-ui-react";
+import Toy from "./Toy";
 import ToyForm from './ToyForm'
 const { useState } = require("react")
 
@@ -17,25 +18,26 @@ const Toys = () =>{
         {id: 9, name: "Barbie", age_group: "3+", img:"https://tse1.mm.bing.net/th?id=OIP.CAOnG9nyNb2nPr2olX7VLwHaJ4&pid=Api"},
         {id: 10, name: "Robot Dog", age_group: "6+", img:"https://tse1.mm.bing.net/th?id=OIP.Qah5e-RJwVkHD4a77wTiugAAAA&pid=Api"}
     ]);
+    const [showForm, setShowForm] = useState(false);
+    const [showEditForm, setEditForm] = useState(false);
     
     
         const renderToys = () =>{
         return(toys.map((t)=>{
-            return(<Grid.Column>
-                <Card.Group style={{padding: "7%"}}>
-                 <Card key={t.id} >   
-                 <Image src={t.img} wrapped ui={false} height={200}/>
-                 <Card.Content>
-                 <Card.Header>{t.name}</Card.Header>
-                 <Card.Meta>
-                     For ages: {t.age_group}
-                 </Card.Meta>
-                 </Card.Content>
-                  </Card>
-                 </Card.Group>
-            </Grid.Column>)
-        }))
+            return(
+                <Toy key={t.id}
+                {...t}
+                updateHandler={updateToy} />
+            );
+        }));
+    };
+    
+    const updateToy = (updateToy) =>{
+        let newToys = toys.map(t=> t.id === updateToy.id ? updateToy : t);
+        setToy(newToys);
+
     }
+    
 
     const addToy = ({name, age_group}) =>{
         let newToy = {
@@ -46,17 +48,18 @@ const Toys = () =>{
 
         let newToys = [...toys, newToy];
         setToy(newToys);
-       
+        setShowForm(false);
     }
 
     return (
         <>
         <Header textAlign="center">Toys</Header>
-        <Button>Add a Toy</Button>
-        <ToyForm 
+        <Button onClick={()=> setShowForm(!showForm)}>Add a Toy</Button>
+        {showForm && <ToyForm 
         toys={toys}
         addToy={addToy}
-         />
+        updateToy={updateToy}
+         />}
         <Grid>
             <Grid.Row columns={3}>
             {renderToys()}
