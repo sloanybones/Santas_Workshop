@@ -6,7 +6,6 @@ import NoMatch from './pages/NotMatch';
 import SantasHelpers from './pages/SantasHelpers';
 import { Container } from 'semantic-ui-react';
 import Toys from './toys/Toys';
-import ToyForm from './toys/ToyForm';
 
 function App() {
   return (

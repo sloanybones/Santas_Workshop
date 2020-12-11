@@ -58,7 +58,8 @@ const Toys = () =>{
 
     return (
         <>
-        <Header style={{padding: "10% 0"}} textAlign="center">Toys</Header>
+        <Link to="/">Go Home</Link>
+        <Header as="h1" style={{paddingTop: "7%"}} textAlign="center">Toys</Header>
         <Button style={{margin: "7% 0"}} onClick={()=> setShowForm(!showForm)}>Add a Toy</Button>
         {showForm && <ToyForm 
         toys={toys}
