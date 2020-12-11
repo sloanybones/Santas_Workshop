@@ -5,16 +5,21 @@ import Home from './pages/Home';
 import NoMatch from './pages/NotMatch';
 import SantasHelpers from './pages/SantasHelpers';
 import Deers from './deer/Deers.js';
+import { Container } from 'semantic-ui-react';
+import Toys from './toys/Toys';
 
 function App() {
   return (
     <>
-    <Switch>
-     <Route exact path = "/" component = {Home} />
-     <Route exact path = "/santas-helpers" component = {SantasHelpers} />
-     <Route exact path = "/deer" component = {Deers} />
-     <Route component = {NoMatch} />
-    </Switch>
+      <Container>
+        <Switch>
+          <Route exact path = "/" component = {Home} />
+          <Route exact path = "/santas-helpers" component = {SantasHelpers} />
+          <Route exact path='/toys' component={Toys} />
+          <Route exact path = "/deer" component = {Deers} />
+          <Route component = {NoMatch} />
+        </Switch>
+      </Container>
     </>
   );
 }
