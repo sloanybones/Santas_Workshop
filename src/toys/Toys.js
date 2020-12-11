@@ -19,7 +19,6 @@ const Toys = () =>{
         {id: 10, name: "Robot Dog", age_group: "6+", img:"https://tse1.mm.bing.net/th?id=OIP.Qah5e-RJwVkHD4a77wTiugAAAA&pid=Api"}
     ]);
     const [showForm, setShowForm] = useState(false);
-    const [showEditForm, setEditForm] = useState(false);
     
     
         const renderToys = () =>{
@@ -27,23 +26,29 @@ const Toys = () =>{
             return(
                 <Toy key={t.id}
                 {...t}
-                updateHandler={updateToy} />
+                updateHandler={updateToy} 
+                removeToy={removeToy}/>
             );
         }));
     };
-    
+
     const updateToy = (updateToy) =>{
         let newToys = toys.map(t=> t.id === updateToy.id ? updateToy : t);
         setToy(newToys);
 
     }
     
+    const removeToy = (id) =>{
+        let newToys = toys.filter(t => t.id !== id);
+        setToy(newToys);
+    }
 
-    const addToy = ({name, age_group}) =>{
+    const addToy = ({name, age_group, img}) =>{
         let newToy = {
             id: Math.random(),
             name: name,
-            age_group: age_group
+            age_group: age_group,
+            img: img
         };
 
         let newToys = [...toys, newToy];
@@ -53,8 +58,8 @@ const Toys = () =>{
 
     return (
         <>
-        <Header textAlign="center">Toys</Header>
-        <Button onClick={()=> setShowForm(!showForm)}>Add a Toy</Button>
+        <Header style={{padding: "10% 0"}} textAlign="center">Toys</Header>
+        <Button style={{margin: "7% 0"}} onClick={()=> setShowForm(!showForm)}>Add a Toy</Button>
         {showForm && <ToyForm 
         toys={toys}
         addToy={addToy}

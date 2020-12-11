@@ -18,7 +18,7 @@ const Toy = ({name, age_group, id, img, updateHandler, removeToy}) =>{
                  </Card.Meta>
                  </Card.Content>
                  <Button icon="pencil" onClick={()=> setShowForm(!showForm)} />
-                 <Button color="red" icon="trash"/>
+                 <Button color="red" icon="trash" onClick={()=>removeToy(id)}/>
                   </Card>
                  </Card.Group>
                  {showForm && <ToyForm editToy={updateHandler}

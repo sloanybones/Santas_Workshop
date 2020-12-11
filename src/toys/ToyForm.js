@@ -1,6 +1,5 @@
 import { Button, Form, Header } from "semantic-ui-react";
 import {useState} from 'react';
-import { Link } from "react-router-dom";
 
 const ToyForm = (toys) =>{
     const [name, setName] = useState("");
@@ -12,7 +11,7 @@ const ToyForm = (toys) =>{
             toys.editToy({name, age_group,img, id: toys.id});
             toys.hideEditForm();
         }else{
-            toys.addToy({name, age_group});
+            toys.addToy({name, age_group, img});
         }
         setName("");
         setAgeGroup("");
@@ -47,7 +46,6 @@ const ToyForm = (toys) =>{
             {toys.id ? "Edit Toy" : "Add Toy"}
         </Button>
     </Form>
-    
     </>
  );
 }
